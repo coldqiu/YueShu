@@ -3,9 +3,6 @@
     <router-link tag="div" class="tab-item" to="/timeline">
       <span class="tab-link">timeline</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/article">
-      <span class="tab-link">article</span>
-    </router-link>
     <router-link tag="div" class="tab-item" to="/blog">
       <span class="tab-link">blog</span>
     </router-link>
@@ -26,19 +23,20 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
+  @import '../common/stylus/variable'
   .tab
     display: flex
     height: 44px
     line-height: 44px
-    font-size: $font-size-medium
+    font-size: 22px
     .tab-item
       flex: 1
       text-align: center
       cursor: pointer
       .tab-link
         padding-bottom: 5px
-        color: $color-text-l
+        color: #71777c
       &.router-link-active
         .tab-link
           color: $color-theme

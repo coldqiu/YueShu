@@ -1,12 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Article from '@/pages/Article/'
 import Tag from '@/pages/Tag'
 import Pic from '@/pages/Pic'
 import Blog from '@/pages/Blog'
 import TimeLine from '@/pages/TimeLine'
 import Search from '@/pages/Search'
-
 
 Vue.use(Router)
 
@@ -28,19 +26,14 @@ export default new Router({
       component: Pic
     },
     {
-      path: '/article',
-      name: 'Article',
-      component: Article
-    },
-    {
       path: '/blog',
       name: 'Blog',
       component: Blog
     },
-      {
-          path: '/search',
-          name: 'Search',
-          component: Search
-      }
+    {
+      path: '/search',
+      name: 'Search',
+      component: Search
+    }
   ]
 })

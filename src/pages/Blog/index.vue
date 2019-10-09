@@ -1,6 +1,11 @@
 <template>
   <div class="wrap">
     <h1>Blog</h1>
+    <main>
+      <div class="main-article">
+        <article></article>
+      </div>
+    </main>
   </div>
 </template>
 
