@@ -1,5 +1,5 @@
 <template>
-  <div class="suspension-panel" v-show="visible">
+  <div class="suspension-panel" v-show="visible" @click="handleClick">
     <span>BackTop</span>
   </div>
 </template>
@@ -20,13 +20,22 @@ export default {
   methods: {
     checkOsTop () {
       let osTop = document.documentElement.scrollTop
-      let clientHeight = document.documentElement.clientHeight
-      console.log('osTop, clientHeight', osTop, clientHeight)
       if (osTop > OFFSET_TOP) {
         this.visible = true
       } else {
         this.visible = false
       }
+    },
+    handleClick () {
+      let _timer = setInterval(() => {
+        let osTop = document.documentElement.scrollTop
+        // let speed = Math.floor(-osTop / 10)
+        let speed = -20
+        document.documentElement.scrollTop = osTop + speed
+        if (document.documentElement.scrollTop === 0) {
+          clearInterval(_timer)
+        }
+      })
     }
   }
 }
@@ -42,5 +51,6 @@ export default {
     color: rebeccapurple
     font-size: 22px
     font-weight: 700
+    cursor: pointer
   //
 </style>

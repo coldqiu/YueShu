@@ -49,12 +49,12 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="stylus" rel="stylesheet/stylus">
   .wrap
     .container
       margin-top: 10px
       .list
-        width: 1200px
+        width: 800px
         margin: 0 auto
         font-size: 0
         .img-item
