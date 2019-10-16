@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "highlight.js": "^9.15.10",
     "simplemde-theme-base": "^0.2.1",
     "vue": "^2.5.2",

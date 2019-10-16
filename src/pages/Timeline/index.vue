@@ -2,11 +2,11 @@
   <div class="wrap">
     <h1>Timeline</h1>
     <div class="container">
-      <div class="list">
-        <div class="block-item">
-          <span>一点动力也没有，枯燥</span>
-        </div>
-      </div>
+      <ul class="list">
+        <li class="block-item">
+          <span>枯燥</span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -32,7 +32,6 @@ export default {
   .list
       .block-item
         margin-bottom: 15px
-        /*background: linear-gradient(45deg, #a09898, transparent);*/
 
 /**/
 </style>
