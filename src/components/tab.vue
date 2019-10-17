@@ -13,7 +13,7 @@
       <span class="tab-link">tag</span>
     </router-link>
     <router-link tag="div" class="tab-item" to="/search">
-      <span class="tab-link">search</span>
+      <span class="tab-link">test</span>
     </router-link>
   </div>
 </template>
@@ -27,12 +27,15 @@ export default {
   @import '../common/stylus/variable'
   .tab
     display: flex
+    justify-content: space-around
     height: 44px
     line-height: 44px
     font-size: 22px
+    width: 100%
+    padding: 0 15px
+    box-sizing: border-box
     .tab-item
-      flex: 1
-      text-align: center
+      padding: 0 15px
       cursor: pointer
       .tab-link
         padding-bottom: 5px

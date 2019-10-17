@@ -24,20 +24,23 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
+  /*-webkit-font-smoothing: antialiased;*/
+  /*-moz-osx-font-smoothing: grayscale;*/
 }
-  h1, span {
-    text-align: center;
-  }
-  h1 {
-    font-size: 18px;
-    margin: 10px 0 15px 0;
-    color: #8c8383;
-  }
+  /*h1, span {*/
+    /*text-align: center;*/
+  /*}*/
+  /*h1 {*/
+    /*font-size: 18px;*/
+    /*margin: 10px 0 15px 0;*/
+    /*color: #8c8383;*/
+  /*}*/
   span {
-    font-size: 14px;
-    color: #c37b7b;
+    /*font-size: 14px;*/
+    /*color: #c37b7b;*/
+  }
+  .wrap {
+    text-align: center;
   }
 </style>

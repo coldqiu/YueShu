@@ -1,6 +1,6 @@
 <template>
   <div class="suspension-panel" v-show="visible" @click="handleClick">
-    <span>BackTop</span>
+    <span>Back Top</span>
   </div>
 </template>
 
@@ -42,6 +42,7 @@ export default {
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
+
   .suspension-panel
     position: fixed
     bottom: 80px
@@ -52,5 +53,20 @@ export default {
     font-size: 22px
     font-weight: 700
     cursor: pointer
+  @media screen and (max-width: 414px)
+    .suspension-panel
+      right: 25px
+      width: 40px
+      height: 40px
+      border-radius: 50%
+      padding: 5px
+      font-size: 13px
+      text-align: center
+      span
+        display: block
+        padding-top: 5px
+        color: aliceblue
+        word-break: break-word
+    /**/
   //
 </style>

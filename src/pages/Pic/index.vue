@@ -50,11 +50,18 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  @media screen and (max-width: 414px)
+    .img-item
+      /*max-height: 1200px*/
+      /*overflow: hidden*/
+    img
+        width: 100%
+        height: 100%
   .wrap
     .container
       margin-top: 10px
       .list
-        width: 800px
+        max-width: 800px
         margin: 0 auto
         font-size: 0
         .img-item
@@ -65,5 +72,6 @@ export default {
           background: linear-gradient(45deg, #a09898, transparent);
           img
             max-width: 450px
-            max-height: 400px
+            min-width: 320px
+  /**/
 </style>
