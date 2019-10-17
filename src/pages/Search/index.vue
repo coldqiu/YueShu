@@ -9,7 +9,8 @@
         <!--<button @click="handleClick">submit</button>-->
       <!--</div>-->
       <div class="textarea-box">
-        <textarea name="" id="" v-model="content"></textarea>
+        <textarea name="" id="" v-model="content" placeholder="支持markdown语法"></textarea>
+        <br>
         <div class="textarea-button">
           <button @click="handleClick" class="subimt-textarea button-textarea">submit-textarea</button>
         </div>
@@ -18,6 +19,7 @@
         <div class="article-item" v-for="(item, index) in list" :key="index">
           <article class="article-box" v-html="item.content ? item.content : 'NO Data'"></article>
           <!--<div class="id">{{item.id}}</div>-->
+          <button @click="handleDelete(item.id)" class="delete-article">delete-article</button>
         </div>
       </div>
     </div>
@@ -67,6 +69,7 @@ export default {
       })
         .then((data) => {
           this.getArticleList()
+          console.log('提交成功', data)
         })
     },
     getArticleList () {
@@ -76,6 +79,17 @@ export default {
       })
         .then((data) => {
           this.list = this._markedData(data.data)
+        })
+    },
+    handleDelete (id) {
+      console.log('id', id)
+      axios({
+        method: 'delete',
+        url: `/markdown/${id}`
+      })
+        .then((data) => {
+          console.log('after delete', data)
+          this.getArticleList()
         })
     },
     markdown () {
@@ -126,7 +140,9 @@ export default {
     padding: 20px
     text-align: left
     textarea
-      width: 420px
+      width: 100%
+      min-height: 90px
+      max-width: 540px
       height: auto
       padding: 5px 15px
       line-height: 1.5
@@ -139,6 +155,12 @@ export default {
       &:focus
         outline: none
         border-color: #a7a6a6
+      &:after
+        content: attr(placeholder)
+        position: absolute
+        top: 8px
+        color: red
+        font-size: 14px
   .article-list
     padding-top: 20px
     padding-left: 20px
@@ -146,6 +168,9 @@ export default {
     max-width: 660px
     margin: 0 auto
     text-align: left
+    .article-box
+      img
+        max-width: 660px
 
   button
     display: inline-block
@@ -176,10 +201,8 @@ export default {
       border-color: #3a8ee6
       color: #fff
   @media screen and (max-width: 414px)
-    .textarea-box
-      overflow: hidden
-      textarea
-        width: 360px
-        box-sizing: border-box
-  /**/
+    .article-box
+      img
+        width: 100%
+/**/
 </style>
