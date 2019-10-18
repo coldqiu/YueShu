@@ -2,12 +2,6 @@
   <div class="wrap">
     <h1>test demo</h1>
     <div class="container">
-      <!--<div class="markdown-box">-->
-        <!--<vue-simplemde v-model="content" ref="markdownEditor" :highlight="true"></vue-simplemde>-->
-      <!--</div>-->
-      <!--<div class="button">-->
-        <!--<button @click="handleClick">submit</button>-->
-      <!--</div>-->
       <div class="textarea-box">
         <textarea name="" id="" v-model="content" placeholder="支持markdown语法"></textarea>
         <br>
@@ -18,7 +12,6 @@
       <div class="article-list">
         <div class="article-item" v-for="(item, index) in list" :key="index">
           <article class="article-box" v-html="item.content ? item.content : 'NO Data'"></article>
-          <!--<div class="id">{{item.id}}</div>-->
           <button @click="handleDelete(item.id)" class="delete-article">delete-article</button>
         </div>
       </div>
@@ -27,33 +20,22 @@
 </template>
 
 <script>
-import VueSimplemde from 'vue-simplemde'
-import hljs from 'highlight.js'
+// import hljs from 'highlight.js'
 import axios from 'axios'
-import marked from 'marked'
-// highlight: function (code, lang, callback) {
-//   require('pygmentize-bundled')({ lang: lang, format: 'html' }, code, function (err, result) {
-//     callback(err, result.toString())
-//   })
-// }
-
-window.hljs = hljs
+import { markedData, markedData2, markedData3 } from '../../utils/utils' // eslint-disable-line
 
 export default {
   name: 'Search',
   data () {
     return {
       content: '',
-      list: [],
-      markedList: []
+      list: []
     }
   },
   components: {
-    VueSimplemde
   },
   created () {
     this.getArticleList()
-    this.markdown()
   },
   computed: {
   },
@@ -78,11 +60,14 @@ export default {
         url: '/markdown'
       })
         .then((data) => {
-          this.list = this._markedData(data.data)
+          console.log('data-first', data)
+          this.list = markedData(data.data)
+          // 第二、三种Array.prototype.map() 会使得 上面的data改变
+          // this.list = markedData2(data.data)
+          // this.list = markedData3(data.data)
         })
     },
     handleDelete (id) {
-      console.log('id', id)
       axios({
         method: 'delete',
         url: `/markdown/${id}`
@@ -91,29 +76,6 @@ export default {
           console.log('after delete', data)
           this.getArticleList()
         })
-    },
-    markdown () {
-      marked.setOptions({
-        renderer: new marked.Renderer(),
-        gfm: true,
-        tables: true,
-        breaks: false,
-        pedantic: false,
-        smartLists: true,
-        sanitize: true,
-        smartypants: false,
-        highlight: function (code) {
-          return hljs.highlightAuto(code).value
-        }
-      })
-    },
-    _markedData (data) {
-      let list = []
-      data.forEach((currentValue) => {
-        let item = marked(currentValue.content ? currentValue.content : 'NO data')
-        list.push({id: currentValue._id, content: item})
-      })
-      return list
     }
   }
 }
@@ -129,11 +91,6 @@ export default {
     margin: 0 auto
     padding-top: 25px
     text-align: left
-    /***/
-      /*text-align: left*/
-  .button
-    margin-top: 60px
-    text-align: center
   .textarea-box
     max-width: 660px
     margin: 0 auto
@@ -200,6 +157,13 @@ export default {
       background: #3a8ee6
       border-color: #3a8ee6
       color: #fff
+  p
+    /*font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif*/
+    font-size: 15.8px
+    line-height: 1.82
+    color: #63666b
+  code
+    font-family: Menlo,Monaco,Consolas,Courier New,monospace
   @media screen and (max-width: 414px)
     .article-box
       img
