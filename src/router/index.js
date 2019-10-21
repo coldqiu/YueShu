@@ -5,6 +5,7 @@ import Pic from '@/pages/Pic'
 import Blog from '@/pages/Blog'
 import TimeLine from '@/pages/TimeLine'
 import Search from '@/pages/Search'
+import BlogDetail from '@/pages/Blog/detail'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/search',
       name: 'Search',
       component: Search
+    },
+    {
+      path: '/blog/:id',
+      name: 'BlogDetail',
+      component: BlogDetail
     }
   ]
 })

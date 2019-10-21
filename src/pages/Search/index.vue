@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <h1>test demo</h1>
+    <div class="temp">（暂停，施工,有问题）</div>
     <div class="container">
       <div class="textarea-box">
         <textarea name="" id="" v-model="content" placeholder="支持markdown语法"></textarea>
@@ -11,7 +11,7 @@
       </div>
       <div class="article-list">
         <div class="article-item" v-for="(item, index) in list" :key="index">
-          <article class="article-box" v-html="item.content ? item.content : 'NO Data'"></article>
+          <div class="article-box" v-html="item.content ? item.content : 'NO Data'"></div>
           <button @click="handleDelete(item.id)" class="delete-article">delete-article</button>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default {
         url: '/markdown'
       })
         .then((data) => {
-          console.log('data-first', data)
+          // console.log('data-first', data)
           this.list = markedData(data.data)
           // 第二、三种Array.prototype.map() 会使得 上面的data改变
           // this.list = markedData2(data.data)
@@ -81,7 +81,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style scoped lang="stylus" rel="stylesheet/stylus">
   @import 'simplemde/dist/simplemde.min.css';
   @import 'simplemde-theme-base/dist/simplemde-theme-base.min.css';
   /*需要动态设置css，更好的适配 */
@@ -120,15 +120,30 @@ export default {
         font-size: 14px
   .article-list
     padding-top: 20px
+    padding-bottom: 50px
     padding-left: 20px
     padding-right: 20px
     max-width: 660px
     margin: 0 auto
     text-align: left
-    .article-box
-      img
-        max-width: 660px
-
+    .article-item
+      margin: 20px 0
+      padding-bottom: 15px
+      border-bottom: 1px dashed #eee
+      .article-box
+        line-height: 1.62
+        padding: 1px 8px
+        background: #f3f8fd
+        font-size: 15.8px
+        color: #63666b
+      .article-box >>> p
+        img
+          max-width: 660px
+        code
+          font-family: Menlo,Monaco,Consolas,Courier New,monospace
+      .article-box >>> pre
+        code
+          font-family: Menlo,Monaco,Consolas,Courier New,monospace
   button
     display: inline-block
     line-height: 1
@@ -157,13 +172,6 @@ export default {
       background: #3a8ee6
       border-color: #3a8ee6
       color: #fff
-  p
-    /*font-family: -apple-system,system-ui,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Arial,sans-serif*/
-    font-size: 15.8px
-    line-height: 1.82
-    color: #63666b
-  code
-    font-family: Menlo,Monaco,Consolas,Courier New,monospace
   @media screen and (max-width: 414px)
     .article-box
       img

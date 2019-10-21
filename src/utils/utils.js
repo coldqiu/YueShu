@@ -1,8 +1,5 @@
 import marked from 'marked'
-(function () {
-  let me = marked('## title')
-  console.log('asdf', marked('## title'), me)
-})()
+
 export function markedData (data) {
   let list = []
   data.forEach((currentValue) => {
@@ -15,21 +12,30 @@ export function markedData (data) {
 // error, why?, 是因为数组的元素是对象？ 奇怪
 // Array.prototype.map() 处理数组元素为对象时的情况：
 // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-export function markedData2 (data) {
-  console.log('data-in-utils', data)
-  data.map((currentValue) => {
-    currentValue.content = marked(currentValue.content ? currentValue.content : 'NO data')
-    console.log('currentValue.content', currentValue.content)
+// export function markedData2 (data) {
+//   data.map((currentValue) => {
+//     currentValue.content = marked(currentValue.content ? currentValue.content : 'NO data')
+//   })
+// }
+
+// export function markedData3 (data) {
+//   let arr = data.map((currentValue) => {
+//     currentValue.content = marked(currentValue.content ? currentValue.content : 'NO data')
+//   })
+//   return data
+// }
+
+export function markedIssues (data) {
+  let list = []
+  console.log()
+  data.forEach((currentItem) => {
+    let id = currentItem.html_url.split('/').pop()
+    list.push({fakeId: id, title: currentItem.title, body: marked(currentItem.body), html_url: currentItem.html_url})
   })
-  console.log('data-after-marked', data)
+  return list
 }
 
-export function markedData3 (data) {
-  console.log('data-in-utils', data)
-  let arr = data.map((currentValue) => {
-    currentValue.content = marked(currentValue.content ? currentValue.content : 'NO data')
-  })
-  console.log('data-after-marked', data)
-  console.log('arr', arr)
+export function markedIssuesDetail (data) {
+  data.body = marked(data.body)
   return data
 }

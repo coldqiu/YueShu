@@ -1,18 +1,18 @@
 <template>
   <div class="tab">
-    <router-link tag="div" class="tab-item" to="/timeline">
+    <router-link tag="a" class="tab-item" to="/timeline">
       <span class="tab-link">timeline</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/blog">
+    <router-link tag="a" class="tab-item" to="/blog">
       <span class="tab-link">blog</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/pic">
+    <router-link tag="a" class="tab-item" to="/pic">
       <span class="tab-link">pic</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/tag">
+    <router-link tag="a" class="tab-item" to="/tag">
       <span class="tab-link">tag</span>
     </router-link>
-    <router-link tag="div" class="tab-item" to="/search">
+    <router-link tag="a" class="tab-item" to="/search">
       <span class="tab-link">test</span>
     </router-link>
   </div>
@@ -30,18 +30,19 @@ export default {
     justify-content: space-around
     height: 44px
     line-height: 44px
-    font-size: 22px
+    overflow-x: hidden
+    font-size: 0
     width: 100%
     padding: 0 15px
     box-sizing: border-box
     .tab-item
       padding: 0 15px
       cursor: pointer
-      .tab-link
-        padding-bottom: 5px
-        color: #71777c
+      padding-bottom: 5px
+      color: #71777c
+      font-size: 21px
+      text-decoration: none
       &.router-link-active
-        .tab-link
-          color: $color-theme
-          border-bottom: 2px solid $color-theme
+        color: $color-theme
+        border-bottom: 2px solid $color-theme
 </style>

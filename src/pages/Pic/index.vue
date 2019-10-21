@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <h1>暂停，施工</h1>
+    <div class="temp">（暂停，施工）</div>
     <div class="container">
       <div class="list">
         <div class="img-item" v-for="(item, index) in list" :key="index">
