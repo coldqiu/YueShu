@@ -3,8 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import MessageBox from '@/components/messageBox'
 
 Vue.config.productionTip = false
+
+Vue.prototype.$msgbox = MessageBox
 
 /* eslint-disable no-new */
 new Vue({

@@ -4,10 +4,8 @@ import merge from '@/utils/merge'
 
 const MessageBoxConstructor = Vue.extend(msgboxVue)
 // 不想添加实例管理类popup，暂时简单一点，将来也可能不会引入，没必要吧
-// 尝试简化elment-ui中的MessageBox,一个单例版
-// 暂停，被下面的概念弄迷糊了
-// ES6的import/export导出的变量是单例！？单例模式，
-// 在单页应用的单页面中都属于单例的应用（但不属于单例应用）
+// 尝试简化elment-ui中的MessageBox
+// 可能是太困了
 
 const defaults = {
   type: 'info',
@@ -21,28 +19,27 @@ const defaultCallback = action => {
 
 MessageBoxConstructor.prototype.close = function () {
   setTimeout(() => {
+    document.body.removeChild(this.$el)
     this.$destroy()
   }, 300)
   this.visible = false
 }
+let instanceList = [] // eslint-disable-line
 
-let instance
 const MessageBox = (options = {}) => {
-  //  options 是调用时传递参数对象
   options = merge({}, defaults, options)
-  if (instance) return instance
   let parent = document.body
-  let _instance = new MessageBoxConstructor({
+  let instance = new MessageBoxConstructor({
     el: document.createElement('div'),
     data: options
   })
-  _instance.callback = defaultCallback
-  parent.appendChild(_instance.$el)
+  instance.callback = defaultCallback
+  parent.style['overflow'] = 'hidden'
+  parent.appendChild(instance.$el)
   Vue.nextTick(() => {
-    _instance.visible = true
+    instance.visible = true
   })
-  instance = _instance
-  return _instance
+  return instance
 }
 
 export default MessageBox

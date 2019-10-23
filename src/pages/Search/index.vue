@@ -6,13 +6,13 @@
         <textarea name="" id="" v-model="content" placeholder="支持markdown语法"></textarea>
         <br>
         <div class="textarea-button">
-          <button @click="handleClick" class="subimt-textarea button-textarea">submit-textarea</button>
+          <button @click="handleClick" class="button-primary subimt-textarea button-textarea">submit-textarea</button>
         </div>
       </div>
       <div class="article-list">
         <div class="article-item" v-for="(item, index) in list" :key="index">
           <div class="article-box" v-html="item.content ? item.content : 'NO Data'"></div>
-          <button @click="handleDelete(item.id)" class="delete-article">delete-article</button>
+          <button @click="handleDelete(item.id)" class="button-primary delete-article">delete-article</button>
         </div>
       </div>
     </div>
@@ -68,20 +68,24 @@ export default {
         })
     },
     handleDelete (id) {
-      axios({
-        method: 'delete',
-        url: `/markdown/${id}`
+      this.$msgbox({
+        title: 'title1',
+        message: 'message112'
       })
-        .then((data) => {
-          console.log('after delete', data)
-          this.getArticleList()
-        })
+      // axios({
+      //   method: 'delete',
+      //   url: `/markdown/${id}`
+      // })
+      //   .then((data) => {
+      //     console.log('after delete', data)
+      //     this.getArticleList()
+      //   })
     }
   }
 }
 </script>
 
-<style scoped lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus">
   @import 'simplemde/dist/simplemde.min.css';
   @import 'simplemde-theme-base/dist/simplemde-theme-base.min.css';
   /*需要动态设置css，更好的适配 */
@@ -161,9 +165,10 @@ export default {
     padding: 12px 20px
     font-size: 14px
     border-radius: 4px
-    color: #fff;
-    background-color: #409eff;
-    border-color: #409eff;
+  button.button-primary
+    color: #fff
+    background-color: #409eff
+    border-color: #409eff
     &:hover
       background: #66b1ff
       border-color: #66b1ff
@@ -172,6 +177,18 @@ export default {
       background: #3a8ee6
       border-color: #3a8ee6
       color: #fff
+  button.button-default
+    background: #FFFFFF
+    border: 1px solid #DCDFE6
+    color: #606266
+    &:hover
+      color: #409EFF;
+      border-color: #c6e2ff;
+      background-color: #ecf5ff;
+    &:active
+      color: #3a8ee6;
+      border-color: #3a8ee6;
+      outline: none;
   @media screen and (max-width: 414px)
     .article-box
       img
