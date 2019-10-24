@@ -1,6 +1,6 @@
 <template>
   <transition name="msgbox-fade">
-    <div class="message-box__wrapper" v-if="visible" @click.self="handleClose">
+    <div class="message-box__wrapper" v-if="visible">
       <div class="message-box">
         <div class="message-inner">
           <div class="message-box__header" v-if="title">
@@ -11,7 +11,7 @@
               </div>
               <span>{{title}}</span>
             </div>
-            <button class="close" @click="handleClose">close</button>
+            <button class="close" @click="handleClose('close')">close</button>
           </div>
           <div class="message-box__content">
             <div class="message-box__message" v-if="message !== ''">
@@ -19,8 +19,8 @@
             </div>
           </div>
           <div class="message-box__btns">
-            <button class="button-default">{{cancelButtonText}}</button>
-            <button class="button-primary">{{confirmButtonText}}</button>
+            <button @click="handleClose('close')" class="button-default">{{cancelButtonText}}</button>
+            <button @click="handleClose('confirm')" class="button-primary">{{confirmButtonText}}</button>
           </div>
         </div>
       </div>
@@ -47,8 +47,10 @@ export default {
       type: null,
       iconClass: '',
       confirmButtonText: '确定',
-      cancelButtonText: '取消'
+      cancelButtonText: '取消',
       // MessageBox 的组织结构非常有趣
+      callback: null,
+      action: null
     }
   },
   props: {
@@ -60,7 +62,19 @@ export default {
     }
   },
   methods: {
-    handleClose () {
+    handleClose (action) {
+      this.visible = false
+      this.$emit('close')
+      setTimeout(() => {
+        this.restoreBodyStyle()
+      }, 200)
+      setTimeout(() => {
+        console.log('action', action)
+        this.callback(action)
+      })
+    },
+    restoreBodyStyle () {
+      document.body.style = {}
     }
   }
 }

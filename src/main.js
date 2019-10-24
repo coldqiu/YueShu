@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import MessageBox from '@/components/messageBox'
+import '@/common/stylus/style.styl'
 
 Vue.config.productionTip = false
 

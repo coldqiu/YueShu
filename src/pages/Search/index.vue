@@ -70,7 +70,10 @@ export default {
     handleDelete (id) {
       this.$msgbox({
         title: 'title1',
-        message: 'message112'
+        message: 'message112',
+        callback: function (action, instance) {
+
+        }
       })
       // axios({
       //   method: 'delete',
@@ -80,6 +83,22 @@ export default {
       //     console.log('after delete', data)
       //     this.getArticleList()
       //   })
+
+      // callback: (action, id) => {
+      //   if (action === 'close') {
+      //     this.visible = true
+      //   } else if (action === 'confirm') {
+      //     console.log('id', id) // id传不到callback，this指向问题,需要组件实例
+      //     axios({
+      //       method: 'delete',
+      //       url: `/markdown/${id}`
+      //     })
+      //       .then((data) => {
+      //         console.log('after delete', data)
+      //         this.getArticleList()
+      //       })
+      //   }
+      // }
     }
   }
 }
@@ -148,47 +167,6 @@ export default {
       .article-box >>> pre
         code
           font-family: Menlo,Monaco,Consolas,Courier New,monospace
-  button
-    display: inline-block
-    line-height: 1
-    white-space: nowrap
-    cursor: pointer
-    border: 1px solid
-    appearance: none
-    text-align: center
-    box-sizing: border-box
-    outline: none
-    margin: 0
-    transition: .1s
-    font-weight: 500
-    user-select: none
-    padding: 12px 20px
-    font-size: 14px
-    border-radius: 4px
-  button.button-primary
-    color: #fff
-    background-color: #409eff
-    border-color: #409eff
-    &:hover
-      background: #66b1ff
-      border-color: #66b1ff
-      color: #fff
-    &:active
-      background: #3a8ee6
-      border-color: #3a8ee6
-      color: #fff
-  button.button-default
-    background: #FFFFFF
-    border: 1px solid #DCDFE6
-    color: #606266
-    &:hover
-      color: #409EFF;
-      border-color: #c6e2ff;
-      background-color: #ecf5ff;
-    &:active
-      color: #3a8ee6;
-      border-color: #3a8ee6;
-      outline: none;
   @media screen and (max-width: 414px)
     .article-box
       img
