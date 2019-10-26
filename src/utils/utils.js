@@ -1,4 +1,9 @@
 import marked from 'marked'
+// marked文档：https://marked.js.org/#/USING_ADVANCED.md#options
+marked.setOptions({
+  gfm: true,
+  breaks: true
+})
 
 export function markedData (data) {
   let list = []

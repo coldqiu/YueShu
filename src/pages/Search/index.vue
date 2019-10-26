@@ -3,16 +3,22 @@
     <div class="temp">（暂停，施工,有问题）</div>
     <div class="container">
       <div class="textarea-box">
-        <textarea name="" id="" v-model="content" placeholder="支持markdown语法"></textarea>
-        <br>
+        <!--<textarea ref="textarea" name="" id="" v-model="content" placeholder="支持markdown语法"></textarea>-->
+        <el-input ref="textarea" type="textarea" v-model="content"
+                  :autosize="{ minRows: 3, maxRows: 9}"
+                  placeholder="支持markdown语法"
+                  :maxlength="maxLength"
+                  :show-word-limit="showWordLimit"
+        ></el-input>
         <div class="textarea-button">
-          <button @click="handleClick" class="button-primary subimt-textarea button-textarea">submit-textarea</button>
+          <button @click="handleSubmit" class="button-primary subimt-textarea button-textarea">submit-textarea</button>
+          <button @click="handleClear" class="button-primary">清空</button>
         </div>
       </div>
       <div class="article-list">
         <div class="article-item" v-for="(item, index) in list" :key="index">
           <div class="article-box" v-html="item.content ? item.content : 'NO Data'"></div>
-          <button @click="handleDelete(item.id)" class="button-primary delete-article">delete-article</button>
+          <button @click="handleDelete(item.id, item.content)" class="button-primary delete-article">delete-article</button>
         </div>
       </div>
     </div>
@@ -23,13 +29,16 @@
 // import hljs from 'highlight.js'
 import axios from 'axios'
 import { markedData, markedData2, markedData3 } from '../../utils/utils' // eslint-disable-line
-
+// import MessageBox from 'vue-msgbox'  //  似乎没有在维护
+import { MessageBox, Message } from 'element-ui'
 export default {
   name: 'Search',
   data () {
     return {
       content: '',
-      list: []
+      list: [],
+      maxLength: 300,
+      showWordLimit: true
     }
   },
   components: {
@@ -40,7 +49,7 @@ export default {
   computed: {
   },
   methods: {
-    handleClick () {
+    handleSubmit () {
       let content = this.content
       axios({
         method: 'post',
@@ -50,9 +59,25 @@ export default {
         }
       })
         .then((data) => {
-          this.getArticleList()
-          console.log('提交成功', data)
+          if (data.status === 200) {
+            console.log('data', data)
+            this.getArticleList()
+            Message({
+              type: 'info',
+              message: '提交成功'
+            })
+          } else if (data.status === 204) {
+            Message({
+              type: 'warning',
+              message: '不能提交空信息'
+            })
+          } else {
+            console.log('error', data)
+          }
         })
+    },
+    handleClear () {
+      this.$refs.textarea.value = ''
     },
     getArticleList () {
       axios({
@@ -60,45 +85,41 @@ export default {
         url: '/markdown'
       })
         .then((data) => {
-          // console.log('data-first', data)
           this.list = markedData(data.data)
-          // 第二、三种Array.prototype.map() 会使得 上面的data改变
-          // this.list = markedData2(data.data)
-          // this.list = markedData3(data.data)
         })
     },
-    handleDelete (id) {
-      this.$msgbox({
-        title: 'title1',
-        message: 'message112',
-        callback: function (action, instance) {
-
-        }
+    handleDelete (id, content) {
+      MessageBox({
+        title: '确定删除?',
+        message: `${content}`,
+        type: 'warning',
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        showCancelButton: true,
+        showConfirmButton: true,
+        dangerouslyUseHTMLString: true
       })
-      // axios({
-      //   method: 'delete',
-      //   url: `/markdown/${id}`
-      // })
-      //   .then((data) => {
-      //     console.log('after delete', data)
-      //     this.getArticleList()
-      //   })
-
-      // callback: (action, id) => {
-      //   if (action === 'close') {
-      //     this.visible = true
-      //   } else if (action === 'confirm') {
-      //     console.log('id', id) // id传不到callback，this指向问题,需要组件实例
-      //     axios({
-      //       method: 'delete',
-      //       url: `/markdown/${id}`
-      //     })
-      //       .then((data) => {
-      //         console.log('after delete', data)
-      //         this.getArticleList()
-      //       })
-      //   }
-      // }
+        .then(() => {
+          axios({
+            method: 'delete',
+            url: `markdown/${id}`
+          })
+            .then((data) => {
+              if (data.status === 204) {
+                this.getArticleList()
+                Message({
+                  type: 'info',
+                  message: '已删除'
+                })
+              }
+            })
+        })
+        .catch((action) => {
+          Message({
+            type: 'info',
+            message: '取消删除'
+          })
+        })
     }
   }
 }
@@ -141,6 +162,10 @@ export default {
         top: 8px
         color: red
         font-size: 14px
+    .textarea-button
+      display: flex
+      justify-content: space-between
+      margin-top: 8px
   .article-list
     padding-top: 20px
     padding-bottom: 50px
@@ -159,6 +184,7 @@ export default {
         background: #f3f8fd
         font-size: 15.8px
         color: #63666b
+        /*参见v-html 渲染的内容设置css失效问题*/
       .article-box >>> p
         img
           max-width: 660px

@@ -8,7 +8,7 @@ const MessageBoxConstructor = Vue.extend(msgboxVue)
 // https://github.com/ElemeFE/vue-msgbox
 // 实际上message-box并不难理解，一步一步看每一步都理解，整体功能也清楚，逻辑都可以走通，
 // 但是就这样要自己立刻复刻一个，自己就写不出来了，原因在，脑子：处理器跟不上且内存有限，非得训练了
-// 被知识海洋拍打在岸上，苦涩
+// 被知识的浪花拍打在岸上，苦涩
 // 暂停2019.10.24
 
 let instance  // eslint-disable-line

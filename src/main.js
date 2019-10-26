@@ -3,12 +3,15 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import MessageBox from '@/components/messageBox'
+// import MessageBox from '@/components/messageBox'
 import '@/common/stylus/style.styl'
 
+import { Input } from 'element-ui'
+
+Vue.use(Input)
 Vue.config.productionTip = false
 
-Vue.prototype.$msgbox = MessageBox
+// Vue.prototype.$msgbox = MessageBox
 
 /* eslint-disable no-new */
 new Vue({
