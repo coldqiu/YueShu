@@ -18,7 +18,10 @@
       <div class="article-list">
         <div class="article-item" v-for="(item, index) in list" :key="index">
           <div class="article-box" v-html="item.content ? item.content : 'NO Data'"></div>
-          <button @click="handleDelete(item.id, item.content)" class="button-primary delete-article">delete-article</button>
+          <div class="article-button">
+            <el-button @click="handleDelete(item.id, item.content)" type="danger">删除</el-button>
+            <el-button @click="handleUpdate(item.id)" type="primary">修改</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -120,6 +123,15 @@ export default {
             message: '取消删除'
           })
         })
+    },
+    handleUpdate (id) {
+      axios({
+        method: 'update',
+        url: `markdown/${id}`,
+        data: {
+          content: 'update content'
+        }
+      })
     }
   }
 }
@@ -142,9 +154,6 @@ export default {
     text-align: left
     textarea
       width: 100%
-      min-height: 90px
-      max-width: 540px
-      height: auto
       padding: 5px 15px
       line-height: 1.5
       box-sizing: border-box
@@ -156,12 +165,6 @@ export default {
       &:focus
         outline: none
         border-color: #a7a6a6
-      &:after
-        content: attr(placeholder)
-        position: absolute
-        top: 8px
-        color: red
-        font-size: 14px
     .textarea-button
       display: flex
       justify-content: space-between
@@ -179,6 +182,7 @@ export default {
       padding-bottom: 15px
       border-bottom: 1px dashed #eee
       .article-box
+        overflow-x: auto
         line-height: 1.62
         padding: 1px 8px
         background: #f3f8fd
